@@ -1,10 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
 import './Admin.css'
+import Sidebar from '../../Components/Sidebar/Sidebar'
 
 const Admin = () => {
   return (
-    <div className='admin'></div>
+    <div className='admin'>
+        <Sidebar/>
+    </div>
   )
 }
 
