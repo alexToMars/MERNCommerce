@@ -2,6 +2,7 @@
     align-items: center;
     width: 100%;
     margin: 2.5% 10%;
+    padding: 10px;
     background: white;
 }
 
@@ -11,7 +12,7 @@
     font-weight: 800;
 }
 
-.list-product hr{
+.custom-hr{
     height: 3px;
     width: 100%;
     background-color: #C2C2C2;
