@@ -117,7 +117,7 @@ app.post('/addproduct', async (req,res) =>{
     await product.save();
     console.log("Saved");
     res.json({
-        succces : true,
+        success: true,
         name : req.body.name,
     });
 })
