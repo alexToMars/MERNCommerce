@@ -52,4 +52,11 @@ router.post('/addproduct', async (req, res) => {
     }
 });
 
+router.get('/newcollections' ,async (req,res) =>{
+    let products = await Product.find({});
+    let newcollections = products.slice(1).slice(-8);
+    console.log("NewCollections Fetched");
+    res.send(newcollections);
+});
+
 module.exports = router;
