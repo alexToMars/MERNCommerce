@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const Users = require('../models/Users');
+const jwt = require('jsonwebtoken');
+require('dotenv').config({ path: '../.env' });
+const fetchUser = require('../middleware/fetchUser');
 
 // Eliminar un producto
 router.post('/removeproduct', async (req, res) => {
@@ -52,18 +56,37 @@ router.post('/addproduct', async (req, res) => {
     }
 });
 
-router.get('/newcollections' ,async (req,res) =>{
-    let products = await Product.find({});
-    let newcollections = products.slice(1).slice(-8);
-    console.log("NewCollections Fetched");
-    res.send(newcollections);
+// Obtener nuevas colecciones
+router.get('/newcollections', async (req, res) => {
+    try {
+        let products = await Product.find({});
+        let newcollections = products.slice(1).slice(-8);
+        console.log("NewCollections Fetched");
+        res.send(newcollections);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
-router.get('/popularInWomen' , async (req,res) =>{
-    let products = await Product.find({category:"women"});
-    let popularInWomen = products.slice(0,4);
-    console.log("Popular in women fetched");
-    res.send(popularInWomen);
-})
+// Obtener productos populares en la categoría de mujeres
+router.get('/popularInWomen', async (req, res) => {
+    try {
+        let products = await Product.find({ category: "women" });
+        let popularInWomen = products.slice(0, 4);
+        console.log("Popular in women fetched");
+        res.send(popularInWomen);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Agregar al carrito de compras
+router.post('/addtocart', fetchUser, async (req, res) => {
+    let userData = await Users.findOne({_id : req.user.id});
+    userData.cartData[req.body.itemId]+=1;
+    await Users.findOneAndUpdate({_id: req.user.id},{cartData:userData.cartData});
+    res.send({message : "Product added"});
+});
 
 module.exports = router;
+
