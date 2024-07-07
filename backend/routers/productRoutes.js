@@ -59,4 +59,11 @@ router.get('/newcollections' ,async (req,res) =>{
     res.send(newcollections);
 });
 
+router.get('/popularInWomen' , async (req,res) =>{
+    let products = await Product.find({category:"women"});
+    let popularInWomen = products.slice(0,4);
+    console.log("Popular in women fetched");
+    res.send(popularInWomen);
+})
+
 module.exports = router;
