@@ -54,11 +54,11 @@ router.post('/login' , async (req,res)=>{
             res.json({success : true , token});
         }
         else {
-            res.json({success : false , errors : "Wrong password"})
+            res.json({success : false , errors : "Wrong password"});
         }
     }
     else{
-        res.json({success : false , error : "Wrong email id"})
+        res.json({success : false , errors : "Wrong email id"});
     }
 
 })
