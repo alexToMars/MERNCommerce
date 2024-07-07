@@ -7,12 +7,14 @@ const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./db');
 const productRouter = require('./routers/productRoutes');
+const userRouter = require('./routers/userRoutes')
 const PORT = process.env.PORT;
 connectDB();
 
 app.use(express.json());
 app.use(cors());
 app.use('/products',productRouter);
+app.use('/users' , userRouter);
 
 const storage = multer.diskStorage({
     destination: './upload/images',
@@ -42,4 +44,3 @@ app.listen(PORT, (error) => {
         console.log("Error : " + error);
     }
 });
-
